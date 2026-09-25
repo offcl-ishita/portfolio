@@ -320,6 +320,13 @@
             box-shadow: 0 5px 15px rgba(140, 163, 132, 0.4);
         }
 
+
+        .project-link {
+            text-decoration: none;
+            color: inherit;
+            display: block; /* Ensures the link takes up the full space of the card */
+            }
+
         /* --- New Projects CSS --- */
         .projects-grid {
             display: flex;
@@ -546,7 +553,8 @@
                     <div class="projects-grid">
                         
                         <!-- Project 1 -->
-                        <div class="project-card">
+                        <a href="https://offcl-ishita.github.io/bubble-wrap-proj/" class="project-link" target="_blank">
+                            <div class="project-card">
                             <div class="project-icon">🍃</div>
                             <div class="project-info">
                                 <h4>Interactive Bubble Wrap</h4>
@@ -556,30 +564,35 @@
                                 </div>
                             </div>
                         </div>
+                        </a>
 
                         <!-- Project 2 -->
-                        <div class="project-card">
+                        <a href="https://hoppin-srm.vercel.app/" class="project-link" target="_blank">
+                            <div class="project-card">
                             <div class="project-icon">🗺️</div>
                             <div class="project-info">
                                 <h4>Campus Navigation App</h4>
                                 <p>A localized application designed to streamline navigation across the university campus.</p>
                                 <div class="project-tech">
-                                    <span>React</span><span>Web Dev</span>
+                                    <span>React</span><span>Web Dev</span><span>Leaflet</span>
                                 </div>
                             </div>
                         </div>
+                        </a>
 
                         <!-- Project 3 -->
-                        <div class="project-card">
+                        <a href="https://maqer-qr.vercel.app/" class="project-link" target="_blank">
+                            <div class="project-card">
                             <div class="project-icon">🍱</div>
                             <div class="project-info">
-                                <h4>Dining Directory Manager</h4>
-                                <p>A management tool created to organize and maintain accurate campus dining directory information.</p>
+                                <h4>QR Code Generator</h4>
+                                <p>An application created to help you seamlessly create a QR Code that will take you right to a webpage, phonenumber, email or even text.</p>
                                 <div class="project-tech">
-                                    <span>Frontend</span><span>UI/UX</span>
+                                    <span>Frontend</span><span>UI/UX</span><span>React</span>
                                 </div>
                             </div>
                         </div>
+                        </a>
 
                     </div>
                 </div>
