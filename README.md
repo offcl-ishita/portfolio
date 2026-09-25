@@ -42,19 +42,7 @@ Simply double-click the index.html file to open it in your default web browser, 
 🌐 Live Demo
 
 You can view the live version of this portfolio here:
-👉 [Insert your GitHub Pages link here]
-
-(Note: Don't forget to update this link once you deploy your site via GitHub Pages!)
-
-🎨 Customization Guide
-
-Want to make it your own? Here are a few quick tips:
-
-Profile Picture: Replace the src attribute in the <img class="profile-img"> tag with your own image URL.
-
-Colors: Tweak the CSS variables in the :root pseudo-class (like --sage-green or --accent-color) to change the entire theme instantly.
-
-Social Links: Update the href="#" attributes in the <div class="social-links"> section with your actual GitHub, LinkedIn, and Email links.
+👉 https://offcl-ishita.github.io/portfolio/
 
 🤝 Let's Connect!
 
