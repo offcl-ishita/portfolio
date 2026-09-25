@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolioo-Ishita Saha</title>
+    <title>Portfolio-Ishita Saha</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -387,31 +387,9 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- Running Cat Animation --- */
-        #cat-container {
-            position: fixed;
-            bottom: 10px; /* Shifted higher so it's always visible */
-            left: -150px; 
-            width: 80px; 
-            z-index: 9999; /* Ensures it is on top of everything */
-            pointer-events: none; 
-            animation: cat-run 25s linear infinite;
-        }
-
-        #cat-container img {
-            width: 100%;
-            height: auto;
-            transform: scaleX(-1); 
-        }
-
-        @keyframes cat-run {
-            0% { left: -150px; }
-            100% { left: 100vw; }
-        }
-
         /* --- Border Butterflies CSS --- */
         .butterfly {
-            position: fixed; /* Fixed allows them to break out of the card wrapper */
+            position: fixed; 
             font-size: 24px;
             pointer-events: none;
             z-index: 100;
@@ -650,11 +628,6 @@
         </section>
     </main>
 
-    <!-- Running Cat with reliable transparent GIF -->
-    <div id="cat-container">
-        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2Rqbno1eDJoZ2dkaGVwNnEzbGoyNXNnaDI2cTFsdzJueXRwdmRpayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Lq0VJUqFAGlR3xWwR5/giphy.gif" alt="Running Cat">
-    </div>
-
     <script>
         // Tab Switching Logic
         const tabBtns = document.querySelectorAll('.tab-btn');
@@ -707,8 +680,8 @@
             const container = document.body;
             const butterflies = [];
             
-            // Create 5 butterflies and append them to the main body so they aren't cut off
-            for (let i = 0; i < 5; i++) {
+            // Create 10 butterflies and append them to the main body so they aren't cut off
+            for (let i = 0; i < 10; i++) {
                 const b = document.createElement('div');
                 b.classList.add('butterfly');
                 b.innerHTML = '🦋';
@@ -720,13 +693,18 @@
             function positionButterflies() {
                 const rect = infoPane.getBoundingClientRect();
                 
-                // 5 spots around the border
+                // 10 spots forming a ring around the info pane border
                 const positions = [
-                    { x: rect.left + (rect.width * 0.2), y: rect.top - 15 },    // Top edge
-                    { x: rect.right - 10, y: rect.top - 15 },                   // Top right corner
-                    { x: rect.right + 15, y: rect.top + (rect.height * 0.3)},   // Right edge, high
-                    { x: rect.right + 20, y: rect.top + (rect.height * 0.7)},   // Right edge, low
-                    { x: rect.left + (rect.width * 0.6), y: rect.bottom + 10}   // Bottom edge
+                    { x: rect.left + 20, y: rect.top - 15 },                     // Top Left
+                    { x: rect.left + (rect.width * 0.5), y: rect.top - 20 },     // Top Middle
+                    { x: rect.right - 20, y: rect.top - 15 },                    // Top Right
+                    { x: rect.right + 15, y: rect.top + (rect.height * 0.3) },   // Right High
+                    { x: rect.right + 10, y: rect.top + (rect.height * 0.7) },   // Right Low
+                    { x: rect.right - 30, y: rect.bottom + 10 },                 // Bottom Right
+                    { x: rect.left + (rect.width * 0.5), y: rect.bottom + 15 },  // Bottom Middle
+                    { x: rect.left + 30, y: rect.bottom + 10 },                  // Bottom Left
+                    { x: rect.left - 15, y: rect.top + (rect.height * 0.75) },   // Left Low
+                    { x: rect.left - 20, y: rect.top + (rect.height * 0.25) }    // Left High
                 ];
 
                 butterflies.forEach((b, i) => {
@@ -737,7 +715,7 @@
                     if (!b.el.style.animation) {
                         const duration = Math.random() * 4 + 4;
                         b.el.style.animation = `flutter-border ${duration}s infinite alternate ease-in-out`;
-                        b.el.style.animationDelay = `${i * 0.5}s`;
+                        b.el.style.animationDelay = `${i * 0.3}s`; // Stagger the animations
                     }
                 });
             }
