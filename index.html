@@ -177,6 +177,8 @@
             padding: 40px;
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
+            max-height: 80vh;
         }
 
         .tabs {
@@ -318,6 +320,68 @@
             box-shadow: 0 5px 15px rgba(140, 163, 132, 0.4);
         }
 
+        /* --- New Projects CSS --- */
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .project-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid var(--sage-green);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .project-icon {
+            font-size: 24px;
+            background: var(--sage-light);
+            padding: 10px;
+            border-radius: 50%;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .project-info h4 {
+            margin: 0 0 5px 0;
+            color: var(--sage-dark);
+            font-size: 1.1em;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .project-info p {
+            margin: 0 0 10px 0;
+            font-size: 0.9em;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tech span {
+            background: var(--sage-dark);
+            color: white;
+            font-size: 0.75em;
+            padding: 3px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+
         @media (max-width: 768px) {
             .card-wrapper {
                 flex-direction: column;
@@ -378,7 +442,7 @@
                     <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
                 <!-- Email -->
-                <a href="ishitasaha1207@gmail.com" class="social-btn" aria-label="Email">
+                <a href="mailto:ishitasaha1207@gmail.com" class="social-btn" aria-label="Email">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </a>
             </div>
@@ -391,6 +455,8 @@
                 <button class="tab-btn" data-target="education">Education</button>
                 <button class="tab-btn" data-target="skills">Skills</button>
                 <button class="tab-btn" data-target="hobbies">Hobbies</button>
+                <!-- Added Projects Tab -->
+                <button class="tab-btn" data-target="projects">Projects</button>
             </nav>
 
             <div class="tab-content">
@@ -469,6 +535,53 @@
                         <li><span class="highlight">Campus Tech:</span> Developing handy tools and web apps for my peers at SRMIST.</li>
                         <li><span class="highlight">Web Tools:</span> Creating mini web tools that assisst and aid you in everyday tasks.</li>
                     </ul>
+                </div>
+
+                <!-- Projects Pane (NEW) -->
+                <div id="projects" class="pane">
+                    <h2>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        Things I've Built
+                    </h2>
+                    <div class="projects-grid">
+                        
+                        <!-- Project 1 -->
+                        <div class="project-card">
+                            <div class="project-icon">🍃</div>
+                            <div class="project-info">
+                                <h4>Interactive Bubble Wrap</h4>
+                                <p>A fun web toy built with custom sound effects, dynamic theme toggles, and hidden Easter egg treasure hunts.</p>
+                                <div class="project-tech">
+                                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="project-card">
+                            <div class="project-icon">🗺️</div>
+                            <div class="project-info">
+                                <h4>Campus Navigation App</h4>
+                                <p>A localized application designed to streamline navigation across the university campus.</p>
+                                <div class="project-tech">
+                                    <span>React</span><span>Web Dev</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="project-card">
+                            <div class="project-icon">🍱</div>
+                            <div class="project-info">
+                                <h4>Dining Directory Manager</h4>
+                                <p>A management tool created to organize and maintain accurate campus dining directory information.</p>
+                                <div class="project-tech">
+                                    <span>Frontend</span><span>UI/UX</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
