@@ -37,9 +37,10 @@
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), #cde0c5);
-            background-size: 400% 400%;
-            animation: gradient-flow 15s ease infinite;
+            background-image: url('https://i.pinimg.com/1200x/a8/7d/56/a87d56419faf95ad000622da4df7f394.jpg');
+            background-size: cover; /* Ensures the image covers the whole page */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed; /* Keeps the background still when scrolling */
         }
 
         @keyframes gradient-flow {
