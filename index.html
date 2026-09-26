@@ -34,6 +34,9 @@
             --accent-color: #c43b3b;
             --particle-color: %23d97742;
             --bg-overlay: rgba(217, 119, 66, 0.15);
+            
+            /* AUTUMN BACKGROUND */
+            background-image: url('https://i.pinimg.com/1200x/eb/8a/24/eb8a243f07a26994ae2829763c51d827.jpg'); 
         }
 
         body.theme-winter {
@@ -45,6 +48,9 @@
             --accent-color: #5c7b94;
             --particle-color: %23ffffff;
             --bg-overlay: rgba(122, 158, 184, 0.2);
+            
+            /* WINTER BACKGROUND */
+            background-image: url('https://i.pinimg.com/1200x/19/3f/a1/193fa1fefae696a5e5d501ab7bf7d5af.jpg'); 
         }
 
         * {
@@ -62,6 +68,8 @@
             align-items: center;
             overflow-x: hidden;
             background-color: var(--bg-color-1);
+            
+            /* SPRING BACKGROUND */
             background-image: url('https://i.pinimg.com/1200x/a8/7d/56/a87d56419faf95ad000622da4df7f394.jpg');
             background-size: cover; 
             background-position: center; 
@@ -194,7 +202,7 @@
 
         .info-section {
             flex: 1;
-            padding: 40px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -206,8 +214,15 @@
         .tabs {
             display: flex;
             gap: 20px;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
+            padding: 30px 40px 10px 40px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 2px solid rgba(181, 203, 169, 0.3);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .mobile-nav { display: none; }
@@ -223,6 +238,8 @@
             cursor: pointer;
             position: relative;
             transition: color 0.3s ease;
+            flex-shrink: 0; 
+            -webkit-tap-highlight-color: transparent; 
         }
 
         .tab-btn::after {
@@ -243,6 +260,7 @@
         .tab-content {
             flex: 1;
             position: relative;
+            padding: 0 40px 40px 40px;
         }
 
         .pane { display: none; animation: fadeIn 0.4s ease forwards; }
@@ -305,13 +323,10 @@
             padding: 15px;
             border-radius: 12px;
             border-left: 4px solid var(--sage-green);
-            
-            /* Required for the 3D effect */
             transform-style: preserve-3d;
             transform: perspective(1000px);
             transition: background-color 0.3s ease, border-color 0.8s ease; 
         }
-        /* When JS removes the mouse, we want it to snap back smoothly */
         .project-card.reset-tilt {
             transition: transform 0.5s ease, background-color 0.3s ease;
             transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) !important;
@@ -321,12 +336,10 @@
             font-size: 24px; background: var(--sage-light);
             padding: 10px; border-radius: 50%; min-width: 45px; text-align: center;
             transition: background 0.8s ease;
-            transform: translateZ(20px); /* Makes icon pop out in 3D */
+            transform: translateZ(20px); 
         }
 
-        .project-info {
-            transform: translateZ(10px); /* Makes text slightly pop out */
-        }
+        .project-info { transform: translateZ(10px); }
         .project-info h4 {
             margin: 0 0 5px 0; color: var(--sage-dark);
             font-size: 1.1em; font-family: 'Quicksand', sans-serif;
@@ -361,10 +374,11 @@
         .season-btn:hover { transform: scale(1.2); }
         .season-btn.active { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));}
 
-        /* --- BORDER BUTTERFLIES --- */
+        /* --- BORDER ICONS --- */
         .butterfly {
             position: fixed; font-size: 24px; pointer-events: none; z-index: 100; opacity: 0.85;
             filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.15));
+            transition: transform 0.3s ease;
         }
         @keyframes flutter-border {
             0% { transform: translate(0, 0) rotate(-15deg) scale(0.9); }
@@ -379,7 +393,7 @@
             .info-section { max-height: 60vh; padding: 25px 20px; }
             
             /* --- MOBILE TABS (Arrows) --- */
-            .tabs { display: none; } /* Hide standard tabs */
+            .tabs { display: none; } 
             .mobile-nav {
                 display: flex;
                 justify-content: space-between;
@@ -410,6 +424,8 @@
                 color: var(--sage-dark);
                 font-size: 1.1rem;
             }
+            
+            .tab-content { padding: 0 0 30px 0; }
         }
     </style>
 </head>
@@ -592,34 +608,26 @@
         const infoSection = document.querySelector('.info-section');
 
         function switchTab(index) {
-            // Bounds checking for arrows
             if (index < 0) index = tabList.length - 1;
             if (index >= tabList.length) index = 0;
             currentTabIndex = index;
 
             const targetId = tabList[index].id;
 
-            // Update Desktop buttons
             tabBtns.forEach(b => b.classList.remove('active'));
             document.querySelector(`[data-target="${targetId}"]`).classList.add('active');
 
-            // Update Panes
             panes.forEach(p => p.classList.remove('active'));
             document.getElementById(targetId).classList.add('active');
 
-            // Update Mobile Text
             mobileTitle.innerText = tabList[index].title;
-
-            // Scroll to top of info section if needed
             infoSection.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Desktop button clicks
         tabBtns.forEach((btn, index) => {
             btn.addEventListener('click', () => { switchTab(index); });
         });
 
-        // Mobile arrow clicks
         document.getElementById('prev-tab').addEventListener('click', () => switchTab(currentTabIndex - 1));
         document.getElementById('next-tab').addEventListener('click', () => switchTab(currentTabIndex + 1));
 
@@ -628,46 +636,51 @@
         const projectCards = document.querySelectorAll('.project-card');
         projectCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
-                card.classList.remove('reset-tilt'); // Remove reset animation class
+                card.classList.remove('reset-tilt'); 
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element.
-                const y = e.clientY - rect.top;  // y position within the element.
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
                 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                // Calculate rotation limits (max 8 degrees to keep it subtle)
                 const rotateX = ((y - centerY) / centerY) * -8; 
                 const rotateY = ((x - centerX) / centerX) * 8;
                 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             });
 
-            // When mouse leaves, snap back gently
             card.addEventListener('mouseleave', () => {
-                card.style.transform = ''; // Clear inline styles
-                card.classList.add('reset-tilt'); // Add the smooth reset class back
+                card.style.transform = ''; 
+                card.classList.add('reset-tilt'); 
             });
         });
 
 
         // --- SEASON SELECTOR & PARTICLES ---
         const seasonBtns = document.querySelectorAll('.season-btn');
-        let currentInterval; // To clear particles on switch
+        let currentInterval; 
 
         function setSeason(season) {
-            // Update buttons
             seasonBtns.forEach(btn => btn.classList.remove('active'));
             document.querySelector(`[data-season="${season}"]`).classList.add('active');
 
-            // Update body class for CSS variables
             document.body.className = '';
             if (season !== 'spring') {
                 document.body.classList.add(`theme-${season}`);
             }
 
-            // Respawn particles with new theme
             createParticles(season);
+
+            // --- CHANGE THE BORDER ICONS BASED ON SEASON ---
+            const borderIcons = document.querySelectorAll('.butterfly');
+            let newIcon = '🦋'; // Default Spring
+            if (season === 'autumn') newIcon = '🕊️'; // Autumn Birds
+            if (season === 'winter') newIcon = '💎'; // Winter Crystals
+            
+            borderIcons.forEach(icon => {
+                icon.innerHTML = newIcon;
+            });
         }
 
         seasonBtns.forEach(btn => {
@@ -676,21 +689,18 @@
 
         function createParticles(season) {
             const container = document.getElementById('leaf-container');
-            container.innerHTML = ''; // Clear old particles
+            container.innerHTML = ''; 
             
-            // Determine SVG based on season
             let svgCode = '';
             if (season === 'spring') {
                 svgCode = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238ca384"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 7.05,10.67 9.87,11.53L10.96,12.55C14.73,15.54 18.06,16.5 21,17C21.05,16.43 21.09,15.77 21.11,15C21.16,13.25 21.05,11.23 20.35,9.25C19.76,7.5 18.66,6 17.11,4.71C17.07,4.67 17.03,4.63 17,4.6V8Z"/></svg>';
             } else if (season === 'autumn') {
-                // Maple leaf-ish or just orange leaf
                 svgCode = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d97742"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 7.05,10.67 9.87,11.53L10.96,12.55C14.73,15.54 18.06,16.5 21,17C21.05,16.43 21.09,15.77 21.11,15C21.16,13.25 21.05,11.23 20.35,9.25C19.76,7.5 18.66,6 17.11,4.71C17.07,4.67 17.03,4.63 17,4.6V8Z"/></svg>';
             } else if (season === 'winter') {
-                // Snowflakes
                 svgCode = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M22,14C22,14 18,14 18,14C18,16.2 16.2,18 14,18C14,18 14,22 14,22C14,22 10,22 10,22C10,22 10,18 10,18C7.8,18 6,16.2 6,14C6,14 2,14 2,14C2,14 2,10 2,10C2,10 6,10 6,10C6,7.8 7.8,6 10,6C10,6 10,2 10,2C10,2 14,2 14,2C14,2 14,6 14,6C16.2,6 18,7.8 18,10C18,10 22,10 22,10C22,10 22,14 22,14Z"/></svg>';
             }
 
-            const particleCount = season === 'winter' ? 25 : 12; // More particles for snow
+            const particleCount = season === 'winter' ? 25 : 12; 
 
             for (let i = 0; i < particleCount; i++) {
                 setTimeout(() => { spawnParticle(container, svgCode, season); }, Math.random() * 5000);
@@ -706,7 +716,6 @@
             let duration = Math.random() * 6 + 8;
             let size = Math.random() * 15 + 12;
 
-            // Make snow smaller and faster
             if(season === 'winter') {
                 size = Math.random() * 8 + 6;
                 duration = Math.random() * 5 + 5;
@@ -724,12 +733,12 @@
                     el.remove();
                     spawnParticle(container, svgCode, season);
                 } else {
-                    el.remove(); // Don't respawn if season changed
+                    el.remove(); 
                 }
             }, duration * 1000);
         }
 
-        // --- Border-Hugging Butterflies System ---
+        // --- Border-Hugging Icons System ---
         function createBorderButterflies() {
             const infoPane = document.querySelector('.info-section');
             const container = document.body;
@@ -746,16 +755,16 @@
             function positionButterflies() {
                 const rect = infoPane.getBoundingClientRect();
                 const positions = [
-                    { x: rect.left + 20, y: rect.top - 15 },                     // Top Left
-                    { x: rect.left + (rect.width * 0.5), y: rect.top - 20 },     // Top Middle
-                    { x: rect.right - 20, y: rect.top - 15 },                    // Top Right
-                    { x: rect.right + 15, y: rect.top + (rect.height * 0.3) },   // Right High
-                    { x: rect.right + 10, y: rect.top + (rect.height * 0.7) },   // Right Low
-                    { x: rect.right - 30, y: rect.bottom + 10 },                 // Bottom Right
-                    { x: rect.left + (rect.width * 0.5), y: rect.bottom + 15 },  // Bottom Middle
-                    { x: rect.left + 30, y: rect.bottom + 10 },                  // Bottom Left
-                    { x: rect.left - 15, y: rect.top + (rect.height * 0.75) },   // Left Low
-                    { x: rect.left - 20, y: rect.top + (rect.height * 0.25) }    // Left High
+                    { x: rect.left + 20, y: rect.top - 15 },                     
+                    { x: rect.left + (rect.width * 0.5), y: rect.top - 20 },     
+                    { x: rect.right - 20, y: rect.top - 15 },                    
+                    { x: rect.right + 15, y: rect.top + (rect.height * 0.3) },   
+                    { x: rect.right + 10, y: rect.top + (rect.height * 0.7) },   
+                    { x: rect.right - 30, y: rect.bottom + 10 },                 
+                    { x: rect.left + (rect.width * 0.5), y: rect.bottom + 15 },  
+                    { x: rect.left + 30, y: rect.bottom + 10 },                  
+                    { x: rect.left - 15, y: rect.top + (rect.height * 0.75) },   
+                    { x: rect.left - 20, y: rect.top + (rect.height * 0.25) }    
                 ];
 
                 butterflies.forEach((b, i) => {
@@ -777,7 +786,7 @@
 
         // Initialize animations on load
         window.onload = function() {
-            setSeason('spring'); // Starts default particles
+            setSeason('spring'); 
             createBorderButterflies();
         };
     </script>
