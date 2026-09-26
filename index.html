@@ -173,18 +173,31 @@
 
         .info-section {
             flex: 1;
-            padding: 40px;
+            padding: 0; /* Padding moved to tabs and content for sticky effect */
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             max-height: 80vh;
+            /* Hide scrollbar for cleaner look */
+            scrollbar-width: none; 
+        }
+        .info-section::-webkit-scrollbar {
+            display: none;
         }
 
+        /* --- STICKY TABS FIX --- */
         .tabs {
             display: flex;
             gap: 20px;
+            padding: 30px 40px 10px 40px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-bottom: 2px solid rgba(181, 203, 169, 0.3);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .tab-btn {
@@ -198,6 +211,9 @@
             cursor: pointer;
             position: relative;
             transition: color 0.3s ease;
+            /* CRITICAL FIX: Stops text from squishing on mobile */
+            flex-shrink: 0; 
+            -webkit-tap-highlight-color: transparent; /* Removes mobile tap glare */
         }
 
         .tab-btn::after {
@@ -224,9 +240,11 @@
             width: 100%;
         }
 
+        /* --- PADDING ADJUSTMENT FOR CONTENT --- */
         .tab-content {
             flex: 1;
             position: relative;
+            padding: 0 40px 40px 40px;
         }
 
         .pane {
@@ -422,13 +440,15 @@
             }
 
             .info-section {
-                padding: 25px 20px;
+                /* Ensures the section doesn't exceed screen height on small phones */
+                max-height: 55vh; 
             }
 
+            /* --- MOBILE TABS UPGRADE --- */
             .tabs {
-                gap: 10px;
+                padding: 20px 20px 10px 20px; /* Reduced mobile padding */
+                gap: 15px;
                 overflow-x: auto;
-                padding-bottom: 5px;
                 scrollbar-width: none; 
             }
             .tabs::-webkit-scrollbar {
@@ -438,6 +458,10 @@
             .tab-btn {
                 font-size: 0.95rem;
                 white-space: nowrap;
+            }
+            
+            .tab-content {
+                padding: 0 20px 30px 20px;
             }
         }
     </style>
@@ -470,6 +494,7 @@
             </div>
         </section>
 
+        <!-- Right Side: Info Section -->
         <section class="info-section">
             
             <nav class="tabs">
@@ -629,17 +654,24 @@
     </main>
 
     <script>
-        // Tab Switching Logic
+        // Tab Switching Logic (Updated to auto-scroll up slightly on mobile)
         const tabBtns = document.querySelectorAll('.tab-btn');
         const panes = document.querySelectorAll('.pane');
+        const infoSection = document.querySelector('.info-section');
 
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 tabBtns.forEach(b => b.classList.remove('active'));
                 panes.forEach(p => p.classList.remove('active'));
                 btn.classList.add('active');
+                
                 const targetId = btn.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
+
+                // If on mobile, slightly scroll up the info pane when changing tabs
+                if (window.innerWidth <= 768) {
+                    infoSection.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             });
         });
 
@@ -723,7 +755,8 @@
             // Place them initially
             positionButterflies();
             
-            // Keep them on the border even if the window is resized!
+            // Re-calculate positions whenever scrolling happens inside the box or window resizes
+            infoPane.addEventListener('scroll', positionButterflies);
             window.addEventListener('resize', positionButterflies);
         }
 
